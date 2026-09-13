@@ -1,0 +1,9 @@
+# Normalize line endings in the repository; checkouts on Windows still work with
+# LF because MSVC, CMake and PowerShell 7 all accept it.
+* text=auto eol=lf
+
+# Binary artefacts, should any ever be committed.
+*.png binary
+*.jpg binary
+*.ico binary
+*.mlfs binary
