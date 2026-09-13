@@ -1,0 +1,39 @@
+# Build trees
+/build/
+/build-*/
+/out/
+/install/
+/install-*/
+/_fresh/
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+# Compiled artifacts
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.lib
+*.exp
+*.so
+*.dylib
+*.a
+
+# Test and runtime scratch
+/scratch/
+*.log
+*.tmp
+/tmp/
+*.mlfs
+*.mlfs.tmp
+core
+core.*
+*.dmp
+
+# Python and tooling
+__pycache__/
