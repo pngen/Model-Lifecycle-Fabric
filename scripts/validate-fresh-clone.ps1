@@ -22,14 +22,17 @@ param(
 $ErrorActionPreference = 'Stop'
 
 if (-not $CloneRoot) {
-    $CloneRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('mlf-fresh-clone-' + [System.Guid]::NewGuid().ToString('N').Substring(0, 8))
+    # A sibling of the source directory: outside the source tree, and on the same
+    # volume so the clone does not depend on cross-volume filesystem behaviour.
+    $parent = Split-Path -Parent $Source
+    $CloneRoot = Join-Path $parent ('mlf-fresh-clone-' + [System.Guid]::NewGuid().ToString('N').Substring(0, 8))
 }
 
 . (Join-Path $PSScriptRoot 'msvc-env.ps1') | Out-Null
 
 Write-Host "cloning $Source into $CloneRoot"
 if (Test-Path -LiteralPath $CloneRoot) { Remove-Item -Recurse -Force -LiteralPath $CloneRoot }
-& git clone --quiet --local $Source $CloneRoot
+& git clone --quiet $Source $CloneRoot
 if ($LASTEXITCODE -ne 0) { throw "git clone failed with exit code $LASTEXITCODE" }
 
 Push-Location $CloneRoot
